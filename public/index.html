@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Empréstimos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Controle de Empréstimos de Jogos de Tabuleiro</h1>
+    <form id="emprestimoForm">
+        <input type="text" id="nome" placeholder="Nome do Jogo" required>
+        <input type="date" id="data_emprest">
+        <input type="date" id="data_devolv">
+        <select id="status" required>
+            <option value="ativo">Ativo</option>
+            <option value="devolvido">Devolvido</option>
+        </select>
+        <input type="text" id="cliente" placeholder="Nome do Cliente" required>
+        <button type="submit">Adicionar Empréstimo</button>
+    </form>
+    <ul id="emprestimosList"></ul>
+    <script src="script.js"></script>
+</body>
+</html>
