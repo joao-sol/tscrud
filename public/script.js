@@ -26,7 +26,7 @@ form.addEventListener('submit', async (e) => {
 async function carregarEmprestimos() {
     const response = await fetch('http://localhost:3000/emprestimos');
     const emprestimos = await response.json();
-    emprestimosList.innerHTML = emprestimos.map(emprestimo => `<li>${emprestimo.nome} - ${emprestimo.cliente}</li>`).join('');
+    emprestimosList.innerHTML = emprestimos.map(emprestimo => `<li> ${emprestimo.ID} - ${emprestimo.nome} - ${emprestimo.cliente} - ${emprestimo.data_emprest} - ${emprestimo.data_devolv} ${emprestimo.status}</li>`).join('');
 }
 
 window.onload = carregarEmprestimos;

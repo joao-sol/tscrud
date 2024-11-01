@@ -28,7 +28,12 @@ db.connect((err) => {
 // Criar empréstimo
 app.post('/emprestimos', (req, res) => {
     const { nome, data_emprest, data_devolv, status, cliente } = req.body;
-    db.query('INSERT INTO emprestimos (nome, data_emprest, data_devolv, status, cliente) VALUES (?, ?, ?, ?, ?)', [nome, data_emprest, data_devolv, status, cliente], (err, result) => {
+    
+    const dataEmprest = data_emprest ? data_emprest : null;
+    const dataDevolv = data_devolv ? data_devolv : null;
+    const parceiro = cliente ? cliente : null;
+
+    db.query('INSERT INTO emprestimos (nome, data_emprest, data_devolv, status, cliente) VALUES (?, ?, ?, ?, ?)', [nome, dataEmprest, dataDevolv, status, parceiro], (err, result) => {
         if (err) return res.status(500).send(err);
         const resultSetHeader = result as mysql.ResultSetHeader;
 res.status(201).send({ id: resultSetHeader.insertId });;
