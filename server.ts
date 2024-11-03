@@ -48,15 +48,42 @@ app.get('/emprestimos', (req, res) => {
     });
 });
 
+import { RowDataPacket } from 'mysql2';
+
+// Obter empréstimo por ID
+app.get('/emprestimos/:id', (req, res) => {
+    const { id } = req.params;
+
+    db.query<RowDataPacket[]>('SELECT * FROM emprestimos WHERE ID = ?', [id], (err, results) => {
+        if (err) {
+            console.error("Erro ao consultar o banco:", err);
+            return res.status(500).send({ error: "Erro ao consultar o banco" });
+        }
+
+        // Verificar se resultados foram retornados
+        if (results.length === 0) {
+            return res.status(404).send({ message: 'Empréstimo não encontrado' });
+        }
+
+        res.json(results[0]);  // Retorna o primeiro resultado como JSON
+    });
+});
+
+
+
 // Atualizar empréstimo
 app.put('/emprestimos/:id', (req, res) => {
     const { id } = req.params;
     const { nome, data_emprest, data_devolv, status, cliente } = req.body;
-    db.query('UPDATE emprestimos SET nome = ?, data_emprest = ?, data_devolv = ?, status = ?, cliente = ? WHERE ID = ?', [nome, data_emprest, data_devolv, status, cliente, id], (err) => {
+    const dataEmprest = data_emprest ? data_emprest : null;
+    const dataDevolv = data_devolv ? data_devolv : null;
+    const parceiro = cliente ? cliente : null;
+    db.query('UPDATE emprestimos SET nome = ?, data_emprest = ?, data_devolv = ?, status = ?, cliente = ? WHERE ID = ?', [nome, dataEmprest, dataDevolv, status, parceiro, id], (err) => {
         if (err) return res.status(500).send(err);
         res.send({ message: 'Empréstimo atualizado com sucesso!' });
     });
 });
+
 
 // Deletar empréstimo
 app.delete('/emprestimos/:id', (req, res) => {
