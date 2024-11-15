@@ -16,7 +16,7 @@ form.addEventListener('submit', async (e) => {
 
     if (editMode) {
         // Atualiza empréstimo
-        await fetch(`http://localhost:3000/emprestimos/${editId}`,{
+        await fetch(`http://tscrud.com.br:3000/emprestimos/${editId}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ form.addEventListener('submit', async (e) => {
         editId = null;
     } else {
         //Adiciona um novo empréstimo
-        await fetch('http://localhost:3000/emprestimos', {
+        await fetch('http://tscrud.com.br:3000/emprestimos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ form.addEventListener('submit', async (e) => {
 // Função para editar um empréstimo
 async function editarEmprestimo(id) {
     try {
-        const response = await fetch(`http://localhost:3000/emprestimos/${id}`);
+        const response = await fetch(`http://tscrud.com.br:3000/emprestimos/${id}`);
         if (!response.ok) {
             throw new Error(`Erro ao buscar o empréstimo: ${response.status}`);
         }
@@ -68,14 +68,14 @@ async function editarEmprestimo(id) {
 
 
 async function deletarEmprestimo(id) {
-    await fetch(`http://localhost:3000/emprestimos/${id}`, {
+    await fetch(`http://tscrud.com.br:3000/emprestimos/${id}`, {
         method: 'DELETE'
     });
     carregarEmprestimos();
 }
 
 async function carregarEmprestimos() {
-    const response = await fetch('http://localhost:3000/emprestimos');
+    const response = await fetch('http://tscrud.com.br:3000/emprestimos');
     const emprestimos = await response.json();
     emprestimosList.innerHTML = emprestimos.map(emprestimo => `<li> 
         ${emprestimo.ID} - ${emprestimo.nome} - ${emprestimo.cliente} - ${emprestimo.data_emprest} - ${emprestimo.data_devolv} ${emprestimo.status} <button onclick="editarEmprestimo(${emprestimo.ID})">Editar</button>
