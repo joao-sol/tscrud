@@ -19,7 +19,7 @@ app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
 app.use(express_1.default.static('public'));
 const db = mysql2_1.default.createConnection({
-    host: 'db.multipass',
+    host: '172.17.0.3',
     user: 'jaolek',
     password: '2307jaolek',
     database: 'rent_game'

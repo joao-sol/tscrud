@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 const db = mysql.createConnection({
-    host: 'db.multipass',
+    host: '172.17.0.3',
     user: 'jaolek',
     password: '2307jaolek',
     database: 'rent_game'
